@@ -1,0 +1,18 @@
+在本地创建一个与github名字相同的repo，之后的步骤是：
+echo "# GoEleven" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/lucyyangruo/GoEleven.git
+git push -u origin main
+——官方指导
+## 相关解释
+1. 修改文件先add，再commit，再push
+2. git branch -M main 的意思是新建一个main分支，然后将本地的操作移动到main上，move，在main上继续执行命令。
+3. git remote add origin 的意思是建立一个远程git仓库，并命令为origin，这里的仓库要注意是 http的形式，建议采用ssh的方式，因为之前已经在本地通过ssh的形式进行关联。
+这里我就使用了http，所以导致一直没法push。之后通过 git remote -v 查看关联的仓库
+通过 git remote set-url origin ssh.. 来修改仓库，再进行push 成功
+4. 原来我已经在known_host文件中添加了github的密钥，而昨天进行了重新生成了新的密钥，并与远程相关联，所以一直提示密钥不对，修改步骤：删除旧的主机密钥：ssh-keygen -R github.com ，重新添加新的主机密钥：ssh -T git@github.com  ，之后就可以进行push了。
+
+以上就是我的步骤解释和遇到的问题。
