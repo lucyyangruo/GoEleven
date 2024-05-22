@@ -16,3 +16,11 @@ git push -u origin main
 4. 原来我已经在known_host文件中添加了github的密钥，而昨天进行了重新生成了新的密钥，并与远程相关联，所以一直提示密钥不对，修改步骤：删除旧的主机密钥：ssh-keygen -R github.com ，重新添加新的主机密钥：ssh -T git@github.com  ，之后就可以进行push了。
 
 以上就是我的步骤解释和遇到的问题。
+
+## 修改文件提交到远程
+git add --all 
+git commit -m "desc"
+git push
+## 相关解释
+1. 这里使用的是git push，而不是上面的git push -u main。-u是设置上游分支，并制定与本地分支的关联关系，upstream，即使上游分支中不存在main，也会关联成功。同 git push -u origin main 相同。
+2. 使用git branch -r 查看所有的远程分支
