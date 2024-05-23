@@ -24,3 +24,18 @@ git push
 ## 相关解释
 1. 这里使用的是git push，而不是上面的git push -u main。-u是设置上游分支，并制定与本地分支的关联关系，upstream，即使上游分支中不存在main，也会关联成功。同 git push -u origin main 相同。
 2. 使用git branch -r 查看所有的远程分支
+
+## 39课程：
+checksum：Checksum（校验和）是一种用于验证文件完整性的方法。它通过对文件数据进行数学运算生成一个唯一的值，当文件内容发生变化时，这个值也会发生变化。
+
+是一个技术，使用不同数学算法——md5、sha-256等得到的值也称为checksum value
+根据文件内容将会生成唯一的值，一般用在网络协议——TCP/IP，或者文件传输协议上——FTP/HTTP。为了确保准确性和安全性
+
+安装go——可以在官网上下载，也可通过homwbrew来安装
+
+## 40课程
+安装go
+：使用homebrew安装，需配置环境变量，设置GOPATH——在 Go 中，GOPATH 是一个用于存储 Go 项目和依赖包的工作区目录。然而，从 Go 1.11 版本开始，引入了 Go Modules，这改变了 Go 项目的组织和管理方式。
+因此我按照默认方式配置go路径，开启强制module管理。设置 GO111MODULE=on 强制启用模块支持：
+
+安装vscode
