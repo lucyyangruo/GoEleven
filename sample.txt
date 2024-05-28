@@ -39,3 +39,85 @@ checksum：Checksum（校验和）是一种用于验证文件完整性的方法�
 因此我按照默认方式配置go路径，开启强制module管理。设置 GO111MODULE=on 强制启用模块支持：
 
 安装vscode
+
+## 41课程
+go 在vs中编写，执行命令等方式
+1. 首先需要定义一个module，在每个go项目下必须有个go module-初始化go模块：go mod init github.com/GoesToEleven/animalPackage
+tip： 类似：使用git init 来初始化git仓库，也就是将当前目录设置为git 仓库，会在当前目录下创建一个隐藏文件.git
+        关于module，是必须以域名开头，表示将该模块托管在该平台下，以确保唯一性。
+        而package main是定义程序可执行入口的唯一路径，pkg main下必须有一个func main。
+2. 创建一个go file。文件夹名就是pkg名称，每个pkg下的文件名必须有相同的pkg名称。
+3. 执行go程序-在shell中使用go run main.go 来执行主程序，或者-go run ./... 来运行所有程序，在当前目录下
+    或者-也可以使用go build 来构建一个可执行程序，再运行，会给一个.exe文件，执行./animalPackage.exe即可
+    或者-交叉编译，也就是win系统下为mac/linux编译可程序文件，使用GOOS=darwin go build 这是为了mac来构建的，可以看到输出一个文件是mac的可执行文件。
+    like-GOOS=darwin/linux/windows go build
+4. 使用 go env GOARCH GOOS 来查看当前的架构和操作系统，like显示 amd64 windows
+5. 使用go version 查看版本
+6. 使用 go help 查看命令帮助
+7. 使用 go env 来查看你所有的go环境变量
+    其中：go root是go语言的核心二进制文件所存的帝制
+        go path是bin包和源代码地址
+
+
+## 42课程
+使用go install 就是将当前目录下的go文件进行构建成二进制文件，并放入到go path的bin目录下。
+
+## 43课程
+write code with errors before write code without errors
+了解module、pkg、dependency、创建工作区的变化、name spacing、等概念
+
+## 44课程
+1. 意大利面条式代码——杂乱无章、难以理解、非结构化、无法重用
+2. 模块化代码/结构化编程——模块化代码是结构化编程的一个方面，结构化编程是一种软件开发方法，是一般准则，但有时可以不尊循，因为代码的清晰性高于简洁性。
+    not DRY-不要重复写自己的代码。将代码任务分为小的、详细设计的、可管理的、可重用的、独立的组建或者模块。模块之间相互协作来实现基本功能。、
+3. 依赖关系——就是我导入了第三方的代码，一般对于标准库的代码不算在依赖关系中，standard library。
+    分为直接依赖和间接依赖，直接就是a导入了b之间的关系，间接就是a导入了b，b又导入了c，a与c之间的关系。
+4. go mod go的工具之一——帮我们配置工作区，也帮我们管理依赖关系
+5. go get go的工具之一——允许我们得到第三方依赖关系的内容
+6. 一篇文章：依赖的风险和安全漏洞
+
+## 47课程
+所以总结：标识符的第一次字母是否大写决定了是否在包外可见，capitalise
+任何语言都有其各自的说法，比如描述外部包可不可用其包的变量等，有些语言使用public or private，但在go中使用，a is visible, a is not visible,或者是 a is exported, a is not exported
+如果一个go文件中定义的变量是小写开头的，表示他是在包外部不可见，is not visible,not exported
+包括pkg内的func的定义名称，identify的第一个字母是否大写
+如果是大写的话，就可以在外部包直接用，包名.方法名去使用
+
+but：但是我注意到，如果一个变量名是小写的话，在包内是可以互相调用的，虽然在包外是不能用的，但是通过一个大写的方法来调用这个not visible变量，从而也可以在外部包使用
+
+
+## 48课程
+关于实践module的导入
+要求：创建一个module，放到github上，可以方便others来导入，再本地创建一个pkg来导入这个module。
+补充，go get时可以在模块名后面加@latest，来导入最新的内容
+使用go get后会downlading最新版本，通过-哈希值来判断
+
+
+创建的module是puppyCopy，不在同一个目录下，https://github.com/lucyyangruo/puppyCopy
+在这个module中没有main.go，只有pkg 是puppyCopy和 puppyCopy.go文件
+
+再当前目录下创建一个新的module，因为主目录是annimalPackage，且当前目录下有go.mod文件，表示这是一个module，所以新建一个目录048-modularCode表示一个pkg，里面有main.go主文件。
+在里面要使用导入的puppyCopy mudule，所以先在shell中go get module名称，对应mod文件会有所改变，再到要使用的go文件中import module名称，最后即可使用大写表示标识的内容。
+最后通过 go mod tidy 来整理mod文件。
+
+使用go mod init进行模块初始化后，会推荐你使用 go mod tidy。
+这里解释下关于module 和 package,module是一个模块，一般会用于完成特定的任务，是一系列pkg的集合，一般命名是域名/名字。
+pkg是一些列路径地址的集合，跟文件夹名有关，一般不能命名为main、all、cmd、std等容易有歧义的名字
+
+
+## 49课程
+关于实践module的导入
+要求：创建一个新的module不同于上面的a，在a中使用这个新的module，并在本地的pkg中来使用这个最新的amodule
+补充，关于go get @latest 并不一定能够获取到最新版本，如果有问题的话则可以通过@哈希值 来获取
+
+实践中遇到的主要问题就是 go get @latest 无法获取最新版本-改为哈希值获取。
+关于a使用b，b使用c，的这样一种依赖，在a导入b时，也会将c导入到a中
+
+
+
+
+
+
+
+
+
