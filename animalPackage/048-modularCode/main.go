@@ -20,4 +20,7 @@ func main() {
 	s4 := puppycopy.BigBarks(s2)
 	fmt.Println(s3)
 	fmt.Println(s4)
+
+	fmt.Printf("\n")
+
 }

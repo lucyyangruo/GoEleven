@@ -2,3 +2,7 @@ github.com/lucyyangruo/dogCopy v0.0.0-20240528054013-a8e62aa2b62a h1:cNtQcmoP/Ce
 github.com/lucyyangruo/dogCopy v0.0.0-20240528054013-a8e62aa2b62a/go.mod h1:AY45BBwdR2cR2CnH+/e0tYyzEpKhRL6qd5aAjH+UrVM=
 github.com/lucyyangruo/puppyCopy v0.0.0-20240528054715-df6db807e132 h1:pcV+rKNRmYFYbWu78NCfiA7jUVFPKtQcU7P7FifJF9c=
 github.com/lucyyangruo/puppyCopy v0.0.0-20240528054715-df6db807e132/go.mod h1:LX70TY3H/ieMU+xw5si3okoLaNxGMtwnJFXsUVbyluM=
+github.com/lucyyangruo/puppyCopy v1.2.0 h1:15AimGYg1XhM0jLOjYyJs3hTgCO4AyOPdgyhw305UOo=
+github.com/lucyyangruo/puppyCopy v1.2.0/go.mod h1:LX70TY3H/ieMU+xw5si3okoLaNxGMtwnJFXsUVbyluM=
+github.com/lucyyangruo/puppyCopy v1.3.1 h1:5yFnh34GJDVChhDa7JIcl6bxeLgfFH2sy6wwuK1Ub8s=
+github.com/lucyyangruo/puppyCopy v1.3.1/go.mod h1:LX70TY3H/ieMU+xw5si3okoLaNxGMtwnJFXsUVbyluM=

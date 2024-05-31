@@ -113,6 +113,78 @@ pkg是一些列路径地址的集合，跟文件夹名有关，一般不能命�
 实践中遇到的主要问题就是 go get @latest 无法获取最新版本-改为哈希值获取。
 关于a使用b，b使用c，的这样一种依赖，在a导入b时，也会将c导入到a中
 
+## 51课程
+50是对tag课程的overview。
+tag是对当前工作目录/repo进行赋予一个标签，指定一个特别的版本。方便日后追踪该版本的改变和队友之间的合作。
+一般我们通过v1.0.0开始，其中1是主要的，可以提交changes，但是不可以向后（向老的）版本兼容。0是次要的，可以changes，也可以向后兼容。0是patch补丁，用于changes和向后兼容。
+
+51 先进行git add ，再进行git tag v1.0.0 ，之后可以进行commit-push，就可以查看git tag（表示列出所有的tag），可以使用git show v1.0.0查看该版本信息，主要是修改了哪些内容，跟commit相关
+52 在puppyCopy中进行测试，首先git add - commit - push，再进行设置tag git tag v1.0.0，再进行 git push origin --tags.
+我出现的错误主要在，在还没有push之前，就进行了git tag v1.0.0 导致push之后，在remote中查看该版本对应下的代码，并没有提交到这，只会出现在没有配置tag的主内容上。所以我在后续增加了 v1.3.1这个tag，才可以将最新的代码配置上tag。
+我理解的tag和branch的关系是：一个branch下可以配置多个tag，相当于不同定义的内容在一个分支下体现。
+注意：先push代码-在配置tag，- push
+53 使用go get @version
+在老师的视频中是：使用@latest，获取到的是v1.0.0版本，但是最新的 v1.3.0，所以没办法获取最新的。
+但是我实际操作起来可以。
+go get使用不同的版本时，也只能使用不同的功能。
+
+注意tip：但是在视频中使用了v1.0.0来编写功能，但是在远程repo是删除了这个版本，也就是在最新的远程代码中是没有该功能，但是依然可以执行，说明这个commit仍然存在于某个地方。
+    可以用在git错误删除的情况下。
+
+quote：when the book and bird differ, believe the bird.不要总是相信教程
+
+## 53课程
+tip：在vs中移动当前行，向上/向下。使用alt+箭头，对应mac是option+箭头
+    复制当前行是，alt+shift+箭头，对应mac是option
+    删除当前行是，control+shift+K。
+    选中多个相同的内容是，先选择某一内容，再ctrl+d，就会自动把下一个内容，选择上。按两字会选择住下下一个相同的内容，以此类推
+    竖向选择时，选中alt，mac是option。
+练习1:在一个func内使用两个func外定义的变量，一个使用var定义，一个使用const定义常量。
+实践总结： 使用printf可以输出%v %t这些的表示内容。
+    对于字符串可以使用 ""+ a + 的形式来输出，但是对于int这些类型就不能使用+ 的格式。
+    需要使用 先定义号要输出的内容规范，在通过 , a,b 来输出值。
+    🤔：如何使用052-hands-exer内的内容运行，main和其他pkg如何定义
+
+## 54课程
+练习2:使用terminal来创建go workspace，再写个hello 世界
+实践总结：如果你创建的代码目录是在已经存在go.mod文件下，那么就不需要go mod init
+tip：使用nano编辑时，buffer 是一个存储区内存。
+
+## 55课程
+联系3:build上面这个项目，再运行可执行文件executable。
+实践总结：使用go build main.go 编译go程序，或者使用 go build . 使用 ./053-hands-exer 来运行主程序
+        关于可执行文件的名字产生原因：
+            在Go编程语言中，使用go build命令编译程序时，如果没有指定输出文件名，默认生成的可执行文件会使用当前目录的名字作为文件名。
+            这是Go的一种默认行为。为了避免这种情况并指定生成的可执行文件名，无论在哪个平台上，你可以使用-o选项。
+            go build -o myprogram main.go
+            **
+            在 Windows 上，go build main.go 生成 main.exe
+            在 Unix 系统上，go build main.go 生成 main
+            在 Unix 系统上，如果运行 go build 而不指定源文件，生成的可执行文件名将是当前目录的名字。
+            同样适用 go build ./... 也会生成当前目录名字
+
+## 56课程
+练习4:为不同操作系统构建不同可执行文件
+实践总结：for windows ：GOOS=windows go build main.go ，不加main.go就产生主目录名的exe文件
+        for mac（本身是mac也可以使用）：GOOS=darwin go build
+        for linux：GOOS=linux go build 产生的executable同mac相同
+
+## 57课程
+练习5:使用go install来安装程序，观察gopath/bin下的内容
+实践总结：主要是使用install编译并安装程序，在go的某一版本更新后，实行module管理项目，就不需要讲go项目放在gopath/src目录下了。
+        在主目录下执行go install 无需要可执行文件名字。
+        在gopath/bin就会出现可执行程序，名字同可执行文件名相同，——查看gopath %中，GOPATH,就会主动跳转到当前目录
+        表示其在任何地方都可以方便地运行，不在bin目录也可以运行.使用053-hands-exer或者./053-hands-exer都可以运行
+        
+
+
+
+
+
+
+
+
+
 
 
 
