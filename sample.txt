@@ -219,7 +219,7 @@ tip：使用nano编辑时，buffer 是一个存储区内存。
 练习8:依赖之前的tag v1.2.0，检查go.mod文件
 
 ## 61课程
-练习8:创建一个新的仓库repo，提交内容并创建tag。
+练习9:创建一个新的仓库repo，提交内容并创建tag。
 实践总结：将当前目录的修改进行提交，并创建一个tag。
         「
         换句话说，如果你从创建仓库起一直没有创建任何标签，那么仓库中就不会有任何标签。
@@ -227,17 +227,463 @@ tip：使用nano编辑时，buffer 是一个存储区内存。
         」
 
 
+## 62课程
+练习10:删除文件夹
+实践总结：使用rm -rf 删除目录，使用rm -f 删除文件
+        f表示强制删除，主要用于制度文件。
+        如果没有f的话，会提示“override r-xr-xr-x john/staff for testFolder?”——
+            系统发现 testFolder 目录具有只读权限（没有写权限），并且所有者是 john，组是 staff。系统询问你是否确实要覆盖当前的权限设置，强制删除这个目录。
+        回答yes/y会删除，回答no/n不会删除。
+        「
+        rm 是用于删除文件和目录的命令
+        -r 或 --recursive：这个选项表示递归删除，用于删除目录及其包含的所有内容（包括子目录和文件）。没有这个选项，rm 命令无法删除目录，只能删除单个文件。
+        -f 或 --force：这个选项表示强制删除，无需确认提示。它会忽略不存在的文件或目录，不会提示是否删除文件或目录。如果你没有这个选项，rm 命令在删除只读文件时会提示确认。
+        # 设置文件夹为只读
+        chmod 555 myfolder
+        # 验证权限
+        ls -ld myfolder
+        # 设置文件为只读
+        chmod 444 myfile.txt
+        」
+        使用ssh来获取github上的代码，新建目录，再clone ssh。。。之后使用rm来删除
 
 
+## 63 课程
+housekeeping：
+1. 哈希hash：
+    一种数学算法。用于将可变大小的输入转换成大小固定的输出。
+    每当输入发生一点改变时，输出都会产生完全不同的值。
+    是单向的，只能根据输入产生输出，不会由输出得到输入。
+    常用于密码存储、数据校验等。
+    算法有md5、sha-1.
+2. 加密encryption：
+    加密数据的两种方式：
+        同步加密synchronous/对称加密，也就是只有一个single key，应用于加密方和解密方向。
+        相同的key，适用于大量数据，高效。
+        常用算法AES、DES。
+        异步加密asynchronous，是由一对密钥组成的public key公钥/private key私钥。
+        公钥用于加密数据，私钥用于解密数据。更加安全，不适合大量数据，效率较低。
+        常用算法RSA、ECC。
+        应用领域：数据加密、文件加密、电子邮件加密、数字签名等。
+        比如github和用户之间就是使用的异步加密。github利用公钥加密一个single key，我们通过私钥解密出这个key，来进行传输一些东西。
+3. 通信
+    单工通信：只能发送方向接受方发送信息。比如远程设备控制、tv broadcast等
+    双工通信：双方都可以发送信息，但不可以同时发送。比如对讲机、收音机等。
+    全双工通信：双方都可以发送信息，也可以同时发送。比如：电话、互联网聊天等。
+
+## 64preview
+## 65课程
+1. 控制流：控制流是指程序中语句、指令和操作的执行顺序。
+        换句话说，控制流管理程序中的执行流程。
+        它通常由条件语句（如 if/else 语句）、循环（如 for 循环、while 循环）和函数调用控制。
+        允许程序根据条件执行不同的代码块，是编程中创建复杂逻辑的关键。
+2. go运行时系统  go runtime sys:Go 运行时系统管理和调度 Go 程序的执行，包括许多简化并发和并行编程的特性。
+    Goroutine 管理：轻量级线程，支持并发执行，由运行时系统管理创建和销毁。
+    垃圾回收：自动释放不再需要的内存，简化内存管理。
+    内存管理：管理程序使用的内存的分配和释放。
+    channel mngn通道管理：管理 goroutine 之间的通信，确保消息按正确顺序传递。
+    堆栈管理：管理每个 goroutine 的堆栈空间。
+3. stack栈 and heap堆
+    栈：用于存储局部变量和函数参数，以 后进先出（LIFO）的方式管理。速度快，由运行时系统自动管理。
+    堆：用于存储生命周期较长的变量，由垃圾回收器管理。更灵活，但内存分配和释放较慢。
+4. Go 编译器
+    Go 编译器将 Go 源代码翻译为计算机可执行的二进制代码。主要任务包括：
+    解析Parsing：将源代码分解为标记token，并分析语法错误。
+        标记是编程语言中最小的独立成分，比如关键字、变量名、操作符和符号等。
+        解析（Parsing） 的第一步是词法分析（Lexical Analysis），通过词法分析器（Lexer）将源代码分解为标记。
+        每个标记包含其类型 和 在源代码中的值。
+        接下来，语法分析器（Parser）使用这些标记构建语法树（Syntax Tree）并检查语法错误。
+    类型检查Type checking：确保变量和表达式类型一致且正确。
+    优化Optimization：提高代码在目标机器上的运行效率。
+        目标是生成运行更快、占用内存更少的机器代码。
+        循环优化（Loop Optimization）：减少循环的迭代次数
+        常量折叠（Constant Folding）：在编译时计算表达式的常量值，减少运行时的计算。
+        死代码消除（Dead Code Elimination）：删除不会被执行的代码，减少不必要的代码量。
+        内联展开（Inlining）：将函数调用展开为函数体本身，减少函数调用开销。
+        。。。
+    代码生成：生成计算机可执行的二进制代码。
+5. 程序执行：
+    程序执行从初始化 main 包开始，然后调用 main 函数。
+    当该函数调用返回时，程序退出。它不会等待其他（非 main）goroutines 完成。
+    main 包必须包含名为 main 的函数声明，并且该函数不接受任何参数且不返回任何值。
+6. tip：第一代机器语言，第二代汇编语言，第三代程序化编程语言go...
+        计算机常见的control flow有三种：顺序sequence、条件conditional、循环loop
 
 
+## 66课程
+if statement
+    在if语句中，condition中通过使用比较运算符，来得出boolean值，进行下一步计算
+    if的三种用法： if.{} `  if {} else{}  ` if {} else if {} else {}`
+	// CONDITIONAL
+	// if statements
+	// switch statements
+    // 第一种
+	if x < 42 {
+		fmt.Println("Less than the meaning of life")
+	}
+    // 第二种
+	if x < 42 {
+		fmt.Println("Less than the meaning of life")
+	} else {
+		fmt.Println("equal to, or greater than, the meaning of life")
+	}
+    // 第三种
+	if x < 42 {
+		fmt.Println("Less than the meaning of life")
+	} else if x == 42 {
+		fmt.Println("equal to the meaning of life")
+	} else {
+		fmt.Println("greater than the meaning of life")
+	}
+
+	/*
+		"If" statements specify the conditional execution of two branches
+		according to the value of a boolean expression. If the expression evaluates
+		to true, the "if" branch is executed, otherwise, if present, the "else" branch is executed.
+	*/
+	// https://go.dev/ref/spec#If_statements
+
+## 67课程
+logical operator逻辑运算符：注意表达式没有括号
+    && :and
+    || :or
+    !  :not
+    true && true :true
+    true && false :false
+    true || true :true
+    true || false :true
+    !true :false
+    // 
+    if x == 42 && y == 43 {
+		fmt.Println("Both are true!")
+	}
+    if a > 5 || b > 50 {
+		fmt.Println("At least one of them is true!")
+	}
 
 
+## 68课程
+语法习惯idiom：
+    1. statement; statement 中间有个分号
+    // example：https://go.dev/ref/spec#If_statements
+    if x := f(); x < y {
+        return x
+    } else if x > z {
+        return z
+    } else {
+        return y
+    }
+    在这个示例中，对z变量的作用域就是整个if语句，在go中要尽可能让你的变量作用域范围小，这样就防止变量浮动和变量隐藏
+    2.  comma,ok
+    // example：https://go.dev/doc/effective_go
+    在此示例中，如果tz存在，seconds 则将被适当设置并ok设置为 true；如果不存在， seconds则将被设置为零并ok设置为 false。
+    func offset(tz string) int {
+        if seconds, ok := timeZone[tz]; ok {
+            return seconds
+        }
+        log.Println("unknown time zone:", tz)
+        return 0
+    }
+    3. 额外补充：rand.Intn(40)表示随机生成一个40以内的数字，不是真正的随机数，只是伪随机数。在[0,n)区间内
 
 
+## 69课程
+switch语句
+    switch statement是一个根据不同情况执行的语句，只能是一个singe variable or expression。如果没有满足的条件，那么就可选一个default switch，来执行fallback代码
+    如果没有匹配的 case，则 default 代码块会被执行，从而提供一个安全的兜底选项。
+    如果在case中 有 fallthrough，表示如果条件为真，则执行下一个内容
+    如果每一个都有fallthrough，那么就会所有的都打印出来
+    fallthrough 关键字用于强制执行下一个 case 代码块，而不进行条件检查。这在需要多个 case 语句共享相同的逻辑时特别有用
+    在需要多个 case 共享相同的逻辑或处理类似情况时使用 fallthrough，比如一次范围比一次大。
+    // example：https://go.dev/play/p/JuPB00o3YNC
+    // switch statements
+
+	switch {
+	case x < 42:
+		fmt.Println("x is LESS THAN 42")
+	case x == 42:
+		fmt.Println("x is EQUAL TO 42")
+	case x > 42:
+		fmt.Println("x is GREATER THAN 42")
+	default:
+		fmt.Println("this is the default case for x")
+	}
+
+	switch x {
+	case 40:
+		fmt.Println("x is 40")
+	case 41:
+		fmt.Println("x is 41")
+	case 42:
+		fmt.Println("x is 42")
+	case 43:
+		fmt.Println("x is 43")
+	default:
+		fmt.Println("this is the default case for x")
+	}
+
+	// no default fallthrough
+	switch x {
+	case 40:
+		fmt.Println("x is 40")
+		fallthrough
+	case 41:
+		fmt.Println("printed because of fallthrough: x is 41")
+	case 42:
+		fmt.Println("printed because of fallthrough: x is 42")
+	case 43:
+		fmt.Println("printed because of fallthrough: x is 43")
+	default:
+		fmt.Println("printed because of fallthrough: this is the default case for x")
+	}
+
+	// no default fallthrough
+	switch x {
+	case 40:
+		fmt.Println("x is 40")
+		fallthrough
+	case 41:
+		fmt.Println("printed because of ALL OF THE fallthrough statements: x is 41")
+		fallthrough
+	case 42:
+		fmt.Println("printed because of ALL OF THE fallthrough statements: x is 42")
+		fallthrough
+	case 43:
+		fmt.Println("printed because of ALL OF THE fallthrough statements: x is 43")
+		fallthrough
+	default:
+		fmt.Println("printed because of ALL OF THE fallthrough statements: this is the default case for x")
+	}
 
 
+## 70课程
+select statement for concurrency 并发交流选择select语句
+    ### 总结：Go 语言中的并发和并行
 
+    #### 使用 select 语句进行并发通信
+    **并发性和并行性** 是编程中相关但不同的概念，包括在 Go 编程语言中。
+
+    1. **并发性（Concurrency）**：
+    - **定义**：并发性指的是按照并发设计模式编写的代码。这意味着代码具有同时执行多个任务的潜在能力，每个任务可以独立于其他任务进行。
+    - **实现**：
+        - 在 Go 语言中，通过使用 **Go 协程（Go Routines）** 实现并发。Go 协程是由 Go 运行时管理的轻量级线程。
+        - 一个 Go 程序可以创建许多 Go 协程，每个协程同时运行，执行不同的任务。
+        - 这些协程之间的 **通信和同步** 通常通过 **通道（Channels）** 实现，通道提供了一种方式让协程之间交换数据和协调执行。
+
+    2. **并行性（Parallelism）**：
+    - **定义**：并行性指的是利用多个 CPU 或核心同时执行多个任务的能力。
+    - **实现**：
+        - 并行性可以通过允许程序的多个部分在不同处理器上并行运行来加速程序的执行。
+        在 Go 语言中，可以通过在不同处理器上运行多个 Go 协程实现并行，使用 `go` 关键字。
+
+    3. **串行 / 顺序执行（Serial / Sequential Execution）**：
+    - 与并行计算相反，串行执行是指代码按预定义顺序一个接一个地执行，每条指令或任务在前一个完成之前必须等待。
+    这种方式通常用于任务相互依赖或资源有限的情况。
+
+    #### Go 语言运行时系统
+
+    **Go 语言的运行时系统** 是由 Go 语言自身提供的基础设施，用于管理程序的执行。它包括以下功能：
+    - **内存管理**：自动管理内存的分配和释放，包括垃圾回收。
+    - **调度器**：管理 Go 协程 的创建、调度和执行。
+    - **并发支持**：提供 Go 协程 和通道等并发原语。
+
+    #### Go 协程（Go Routines）
+
+    - **定义**：Go 协程是 Go 语言中的轻量级线程，由 Go 运行时管理。
+    - **作用**：主要用于实现并发执行，使多个任务可以在一个程序中同时运行，提高程序的性能和响应速度。
+    - **调度**：多个 Go 协程可以由少量的操作系统线程调度和执行，通过 M:N 调度模型实现高效的并发。
+
+    #### 并发和并行的区别
+
+    - **并发**：多个任务在短时间片内交替进行，使得在较长时间段内看起来像是同时进行。适用于 I/O 密集型任务。
+    - **并行**：多个任务在物理上同时执行，利用多核 CPU 的计算能力。适用于计算密集型任务。
+
+    #### 其他编程语言中的并发和并行
+
+    其他编程语言（如 Python、Java、JavaScript等）中的并发和并行概念与 Go 语言类似，但具体实现方式可能有所不同。
+    并发性指多个任务交替进行，而并行性指多个任务真正同时执行。
+
+    ### 总结
+
+    Go 语言通过其运行时系统和 Go 协程提供了强大的并发和并行支持。
+    通过理解并发和并行的区别及其实现方式，可以更高效地编写高性能的 Go 程序。
+
+    // example:https://go.dev/play/p/F7vL8Y63Tao
+    // concurrency
+	// select a channel
+
+	ch1 := make(chan int)
+	ch2 := make(chan int)
+
+    // time.Sleep takes type duration
+	// time.Millisecond is a constant in the time package
+	// https://pkg.go.dev/time#pkg-constants
+    go func() {
+		time.Sleep(d1 * time.Millisecond)
+		ch1 <- 41
+	}()
+
+	go func() {
+		time.Sleep(d2 * time.Millisecond)
+		ch2 <- 42
+	}()
+
+    // A "select" statement chooses which of a set of possible send or receive operations will proceed.
+	// It looks similar to a "switch" statement but with the cases all referring to communication operations.
+	// https://go.dev/ref/spec#Select_statements
+	select {
+	case v1 := <-ch1:
+		fmt.Println("value from channel 1", v1)
+	case v2 := <-ch2:
+		fmt.Println("value from channel 2", v2)
+	}
+
+
+## 71课程
+loop  for statement
+    Go 的 for 循环与 C 的循环类似，但又不同。
+    它统一了 for 和 while，并且没有 do-while。
+    共有三种形式，只有一种形式有分号。
+    ● for init; condition; post { }
+    ● for condition { } // 其余内容在括号内和外部初始化
+    ● for{} // 初始化在外部，其余内容在括号内
+    break退出整体循环
+    continue退出当前循环
+
+    // example：
+    x := 40
+	y := 5
+	fmt.Printf(" x=%v \n y=%v\n", x, y)
+
+    // 第一种
+    for i := 0; i < 5; i++ {
+		fmt.Printf("counting to five: %v \t first  for loop\n", i)
+	}
+
+    //第二种
+    for y < 10 {
+		fmt.Printf("y is %v \t\t\t second for loop\n", y)
+		y++
+	}
+
+    // 第三种 同时使用了break关键字
+    for {
+		fmt.Printf("y is %v \t\t third  for loop\n", y)
+		if y > 20 {
+			break
+		}
+		y++
+	}
+
+    // continue
+	// takes to next iteration
+	for i := 0; i < 20; i++ {
+		if i%2 != 0 {
+			continue
+		}
+		fmt.Println("counting even numbers: ", i)
+	}
+
+
+## 72课程
+nested loop 嵌套循环-多次迭代
+    嵌套循环是由一个循环嵌套在另一个循环中。
+    对于外层循环的每一次迭代，内层循环都会完全执行。
+    嵌套循环通常在处理多维数据结构（如数组或矩阵）时使用。
+    它们也可以用于需要对两个或多个变量的每种组合执行特定操作的任务。
+
+    // example：https://go.dev/play/p/CYL0g_6Wc8R
+    // nested loops
+	for i := 0; i < 5; i++ {
+		fmt.Println("--")
+		for j := 0; j < 5; j++ {
+			fmt.Printf("outer loop %v \t inner loop %v\n", i, j)
+		}
+	}
+
+
+## 73课程
+for range loops 在特定的数据结构中循环
+    array, slice, string, map or channel.在这些结构中可以使用
+    slice，切片，是存储相同数据类型的不同值。
+    map数据结构，map[string]int 类似让你查找东西，查找string的内容，返回的是int也就是string对应的值。
+    对于slice使用for range结构，打印出来的索引和对应的值，map打印出来的key与value。
+    map不会以任何可以预测的方式来返回值，也就是不会按照顺序来返回。
+    这就是他们的设计原则，本来就不是为了设计成按顺序返回的数据结构
+
+    // example：https://go.dev/play/p/EYAvVZHGVQJ
+    xi := []int{42, 43, 44, 45, 46, 47}
+	for i, v := range xi {
+		fmt.Println("ranging over a slice", i, v)
+	}
+
+	// for range loop
+	// data structures - map
+	m := map[string]int{
+		"James":      42,
+		"Moneypenny": 32,
+	}
+	for k, v := range m {
+		fmt.Println("ranging over a map", k, v)
+	}
+
+
+## 74课程
+modulus/reminder 模数/余数 的说明
+    在编程中，模数（或模）运算符是一种数学操作，它返回一个数除以另一个数后的余数。
+    模数运算符用百分号（%）表示。
+    在表达式 11 % 3 中，模数运算符将返回 2，因为 11 除以 3 后余数为 2。
+    模数运算符通常用于检查数字的奇偶性，或者在数组中计算元素的位置。
+    通过理解模数运算，可以更好地处理和解决各种编程问题，尤其是在涉及循环和条件判断的情况下。
+
+    // example:https://go.dev/play/p/OeOR10EATed
+    x := 83 / 40 //2
+	y := 83 % 40 //3
+	fmt.Println(x, y)
+
+
+## 75课程
+exercise1: 使用checksum来进行文件内容校验
+    实践总结： shasum -a 256 ./SNOWY-EVENING.txt 
+            其中需要在文件的同一个目录下运行，.表示的是当前目录
+            每次运行shasun 命令，只要不改变文件内容，得到的checksum校验和就是一样的，但只要改动一点东西，就会有完全不同的输出。
+            
+            编辑文件 nano filename
+            查看文件 cat filename
+
+
+## 76课程
+exercise2:打印一个在0，250之间的随机数，再使用if 来打印更多的内容
+    实践总结：练习./animalPackage/076-hand-exer1
+            在视频中，所有区间都是包括等于，且在界限内
+
+
+## 77课程
+exercise3:修改上一个练习，使用conditional logical 语句：switch / select
+    实践总结：是让你进行二选一，所以选择swich，
+            select 语句用于处理多个通道操作，而不是简单的条件判断。
+            ./animalPackage/077-hand-exer2
+            这里有一个关于switch与if的各个case执行条件的问题？
+                通过查询，发现二者都是按照顺序判断，这是因为对于复杂结构的代码来说，这样效率更高，也是底层决定的。
+
+## 78课程
+exercise4: 修改之前的代码，使用 init func 来进行初始化
+实践总结：./animalPackage/078-hand-exer3
+        只是让实现func init函数，不需要功能转移
+        init func 表示是main函数执行之前的初始化地方
+        解释：https://go.dev/doc/effective_go#init
+        haha 你可以跟其他developer说 这是一个好的niladic func
+        niladic 表示一种特殊的操作在程序中，没有参数。所以 func init就是niladic
+        niladic这个术语来源于 nil 表示空值 与 ladic的组合。
+tip：ctrl + t 新启动一个google标签
+
+## 79课程
+exercise5: 使用if来输出不同的内容，并用random来定义两个数
+实践总结：./animalPackage/079-hand-exer5
+        逻辑问题
+
+## 80课程
+exercise6: 使用switch来实现上面的练习
 
 
 
