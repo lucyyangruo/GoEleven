@@ -136,7 +136,7 @@ quote：when the book and bird differ, believe the bird.不要总是相信教程
 ## 53课程
 tip：在vs中移动当前行，向上/向下。使用alt+箭头，对应mac是option+箭头
     复制当前行是，alt+shift+箭头，对应mac是option
-    删除当前行是，control+shift+K。
+    删除当前行是，control+shift+K。mac是command
     选中多个相同的内容是，先选择某一内容，再ctrl+d，就会自动把下一个内容，选择上。按两字会选择住下下一个相同的内容，以此类推
     竖向选择时，选中alt，mac是option。
 练习1:在一个func内使用两个func外定义的变量，一个使用var定义，一个使用const定义常量。
@@ -684,6 +684,96 @@ exercise5: 使用if来输出不同的内容，并用random来定义两个数
 
 ## 80课程
 exercise6: 使用switch来实现上面的练习
+实践总结：./animalPackage/079-hand-exer5
+        tip：cute 一般不是用来形容某人的词，but 有时候可以表示真的可爱
 
 
+## 81课程
+exercise6: 使用loop来实现循环-2 parts-for
+实践总结：./animalPackage/081-hand-exer6
+        其中包含修改上个程序的内容，要注意是运行100次，而不是重复输出100次 
+
+
+## 82课程
+exercise7: 使用switch的另一种写法来将创建的随机数打印出来，并使用iteration
+实践总结：./animalPackage/082-hand-exer7
+        在使用println时，可以继续往后面添加输出的东西，也就是通过,,,来继续添加
+
+
+## 83课程
+exercise8: 使用loop中for的另外两种写法，只写condition条件，和什么都不写，也就是infinate loop无限循环
+实践总结：./animalPackage/083-hand-exer8
+
+## 84课程
+exercise8: 使用break 打破什么都没有的loop 也就是for，在上一个练习中写过。
+            在{}中使用递增/递减来表示循环变量的变化， checked as a condition
+            无限循环。
+            ./animalPackage/083-hand-exer8
+
+## 85课程
+exercise9: 使用modular模数和continue来打印odd奇数
+实践总结：./animalPackage/085-hand-exer9 
+        一个程序员的笑话
+
+## 86课程
+exercise10: 嵌套循环，外层5个循环，第一个循环使用内层循环
+实践总结：./animalPackage/086-hand-exer10 
+        没有第一次的区分
+
+
+## 87课程
+exercise11: for range loop的使用-切片slice
+实践总结： ./animalPackage/087-hand-exer11
+        // for range loop
+        // key表示的索引，从0开始，也就是位置的变化 
+        for key, value := range oldMap {
+            newMap[key] = value
+        }
+        []int{42, 43, 44, 45, 46, 47} 表示相同元素类型，但值不同的组合。类似数组
+
+
+## 88课程
+exercise11: for range loop 使用 map数据结构
+实践总结：./animalPackage/087-hand-exer11
+        map 结构中最后一个元素也有逗号 
+        ‘_’的使用
+
+
+## 89课程
+exercise11: 在loop中判断条件 + 使用 comma ok 习语
+实践总结：./animalPackage/087-hand-exer11
+        comma ok语法结构用于检查序列/map中是否有对应的值。
+        如果一个值不存在map/序列中，则会返回其值为默认值比如int0.
+        // example
+        if v, ok := m["Q"]; !ok {
+		    fmt.Println("There is no Q, and here is the zero value of an int", v)
+	    }
+        可以使用已经声明过的变量，之需要重新进行赋值即可
+
+
+
+
+## 90课程
+exercise12: 使用习语 statement statement
+实践总结： ./animalPackage/090-hand-exer12
+        // example
+        if x := rand.Intn(5); x == 3 {
+			// 3 出现的次数
+			fmt.Printf("iteration %v \t total count %v \t x is %v\n", i, c, x)
+			c++
+		}
+        tip：如果有5个数字，那么一个数字出现的概率是25%，平均分布
+
+
+## 91课程
+exercise13: 打印逻辑运算符
+实践总结： ./animalPackage/091-hand-exer13
+        与video的对比
+
+
+## 92课程
+exercise14: Additional code
+实践总结： ./animalPackage/092-hand-exer14
+
+#
 
